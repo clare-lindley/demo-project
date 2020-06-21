@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
-const file_ops = require('./delete-files');
-const async_tinkering = require('./async-tinkering');
+const file_ops = require('./tinkering/delete-files');
+const async_tinkering = require('./tinkering/async-tinkering');
 
 // static is middleware and calls next()
 // app.use() means it is called on every request
