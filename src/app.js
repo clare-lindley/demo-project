@@ -1,6 +1,7 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const mongoose = require("mongoose");
+const app = express();
+const port = 3000;
 const file_ops = require('./delete-files');
 const async_tinkering = require('./async-tinkering');
 
@@ -8,6 +9,25 @@ const async_tinkering = require('./async-tinkering');
 // app.use() means it is called on every request
 app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+
+
+mongoose
+	.connect("mongodb://localhost/tddDB", {
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+		useUnifiedTopology: true
+	})
+	.then(() =>
+		console.log(`Connected to MongoDB at mongodb://localhost/tddDB...`)
+	)
+	.catch(err => {
+		console.log("Failed to connect to MongoDB...", err);
+		process.exit();
+	});
+
+const usersRouter = require("./routes/user.route");
+app.use("/api/users", usersRouter);
 
 // app handlers
 function testFunction(req, res, next){
@@ -68,4 +88,11 @@ app.get('/delete-files', (req, res) => {
 	res.status(200).send('OK BABY');
 });
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+// let's add the GET getAllUsers() function in a TDD way.
+// add get user by id function in a TDD way
+// add the POST createUser function in a TDD way
+// write a unit test for one of the controller functions: https://www.techighness.com/post/unit-testing-expressjs-controller-part-1/
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+module.exports = app;
