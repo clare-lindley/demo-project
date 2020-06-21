@@ -6,7 +6,7 @@
   "scripts": {
     "fixtures": "node make-test-files.js",
     "start": "nodemon --exec babel-node ./src/app.js",
-    "test": "./node_modules/.bin/mocha --timeout 10000 --require @babel/register --exit"
+    "test": "./node_modules/.bin/mocha --recursive --timeout 10000 --require @babel/register --exit"
   },
   "keywords": [],
   "author": "",
