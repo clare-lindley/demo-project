@@ -1,7 +1,7 @@
-'use strict'
+"use strict";
 
 // our async function
-const getOne = async _ => {
+async function getOne () {
 	return 1;
 }
 
@@ -12,10 +12,10 @@ const getOne = async _ => {
 // 	})
 
 // calling it with await
-const test = async _ => {
+const test = async () => {
 	const one = await getOne();
 	console.log(one); // 1
-}
+};
 
 test();
 

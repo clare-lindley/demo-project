@@ -1,5 +1,4 @@
-const fs = require('fs');
-const { promisify } = require('util')
+const { promisify } = require("util");
 
 // this is the equivalent of the signature of readFile
 // here's our pretend async API
@@ -11,17 +10,17 @@ const getSumAsync = (num1, num2, callback) => {
 		return callback(new Error("Missing arguments"), null);
 	}
 	return callback(null, num1 + num2);
-}
+};
 
-const getSumPromise = promisify(getSumAsync) // step 1
+const getSumPromise = promisify(getSumAsync); // step 1
 
 getSumPromise(1,2) // step 2
 	.then(result => {
-		console.log(result)
+		console.log(result);
 	})
 	.catch(err => {
-		console.log(err.message)
-	})
+		console.log(err.message);
+	});
 
 
 // this is the equivalent of CALLING fs.readfile

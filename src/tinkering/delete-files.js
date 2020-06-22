@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // what does deleteFiles return?
 // how does app.get know if it's a success or not?
@@ -8,7 +8,7 @@ const path = require('path');
 
 exports.deleteFiles = function() {
 
-	const directory = 'fixtures';
+	const directory = "fixtures";
 	fs.readdir(directory, (err, files) => {
 		if (err) {
 			handleError(err);
@@ -20,14 +20,14 @@ exports.deleteFiles = function() {
 						handleError(err);
 					}
 					else {
-						return 'OK';
+						return "OK";
 					}
 				});
 			}
 		}
 	});
-}
+};
 
 const handleError = function(err){
 	console.log(`Error deleting files: ${err.message}`);
-}
+};

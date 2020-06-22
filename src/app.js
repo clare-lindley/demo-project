@@ -1,14 +1,15 @@
-const express = require('express');
+const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
-const file_ops = require('./tinkering/delete-files');
-const async_tinkering = require('./tinkering/async-tinkering');
+const file_ops = require("./tinkering/delete-files");
+const async_tinkering = require("./tinkering/async-tinkering");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
-app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+app.use(express.static("public"));
+// eslint-disable-next-line no-undef
+app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
 
 
 mongoose
@@ -19,10 +20,11 @@ mongoose
 		useUnifiedTopology: true
 	})
 	.then(() =>
-		console.log(`Connected to MongoDB at mongodb://localhost/tddDB...`)
+		console.log("Connected to MongoDB at mongodb://localhost/tddDB...")
 	)
 	.catch(err => {
 		console.log("Failed to connect to MongoDB...", err);
+		// eslint-disable-next-line no-undef
 		process.exit();
 	});
 
@@ -31,10 +33,10 @@ app.use("/api/users", usersRouter);
 
 // app handlers
 function testFunction(req, res, next){
-	res.send('here we go!');
+	res.send("here we go!");
 	next();
 }
-app.get('/test', testFunction);
+app.get("/test", testFunction);
 
 function promiseResolve(req, res, next) {
 	async_tinkering.returnsAPromise(true)
@@ -45,7 +47,7 @@ function promiseResolve(req, res, next) {
 			return next(error);
 		});
 }
-app.get('/promise-resolve', promiseResolve);
+app.get("/promise-resolve", promiseResolve);
 
 function promiseReject(req, res, next) {
 	async_tinkering.returnsAPromise(false)
@@ -56,25 +58,25 @@ function promiseReject(req, res, next) {
 			return next(error);
 		});
 }
-app.get('/promise-reject', promiseReject);
+app.get("/promise-reject", promiseReject);
 
 function getSomeFiles (res, next) {
-	async_tinkering.promisifyFS('fixtures/test_0.txt')
+	async_tinkering.promisifyFS("fixtures/test_0.txt")
 		.then((result) => {
-			res.status(200).send(result.toString('utf-8'))
+			res.status(200).send(result.toString("utf-8"));
 		})
 		.catch((error) => {
-			return next(error)
-		})
+			return next(error);
+		});
 }
-app.get('/promisify', (req, res, next) => {
+app.get("/promisify", (req, res, next) => {
 	getSomeFiles(res, next);
 });
 
-app.get('/await', async (req, res, next) => {
+app.get("/await", async (req, res, next) => {
 
 	try {
-		const result = await async_tinkering.promisifyFS('fixtures/test_0.txt');
+		const result = await async_tinkering.promisifyFS("fixtures/test_0.txt");
 		res.status(200).send(result.toString());
 	}
 	catch(error){
@@ -83,9 +85,9 @@ app.get('/await', async (req, res, next) => {
 
 });
 
-app.get('/delete-files', (req, res) => {
+app.get("/delete-files", (req, res) => {
 	file_ops.deleteFiles();
-	res.status(200).send('OK BABY');
+	res.status(200).send("OK BABY");
 });
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));

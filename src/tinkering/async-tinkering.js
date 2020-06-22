@@ -1,5 +1,5 @@
-const fs = require('fs');
-const util = require('util');
+const fs = require("fs");
+const util = require("util");
 
 
 exports.returnsAPromise = function(success) {
@@ -8,7 +8,7 @@ exports.returnsAPromise = function(success) {
 
 		if(success){
 			setTimeout( function() {
-				resolve("Success!")  // Yay! Everything went well!
+				resolve("Success!");  // Yay! Everything went well!
 			}, 250);
 		}
 		else {
@@ -19,11 +19,11 @@ exports.returnsAPromise = function(success) {
 
 	return myFirstPromise;
 
-}
+};
 
 exports.readFileWithCallback = function() {
 
-	fs.readFile('/etc/passwd', (err, data) => {
+	fs.readFile("/etc/passwd", (err, data) => {
 		if (err) {
 			return err;
 		}
@@ -32,8 +32,8 @@ exports.readFileWithCallback = function() {
 		}
 	});
 
-	return 'returning to express';
-}
+	return "returning to express";
+};
 
 exports.promisifyFS = util.promisify(fs.readFile);
 
