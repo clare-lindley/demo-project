@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
+
+const { createUser } = require("../controllers/user.controller");
 const { User } = require("../models/user.model");
 
 router.route("/")
@@ -9,13 +11,7 @@ router.route("/")
 		return res.send(users);
 	})
 	.post(async (req, res) => {
-		let user = new User({
-			name: req.body.name,
-			email: req.body.email,
-			gender: req.body.gender
-		});
-		await user.save();
-		return res.send(user);
+		await createUser(req, res);
 	});
 
 router.route("/:id")

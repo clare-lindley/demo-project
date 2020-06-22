@@ -1,9 +1,10 @@
-const { User } = require("../../src/models/user.model");
-const request = require("supertest");
 const expect = require("chai").expect;
-const app = require("../../src/app");
+const request = require("supertest");
 
-describe("api/users", () => {
+const app = require("../../src/app");
+const { User } = require("../../src/models/user.model");
+
+describe("Integration tests for api/users", () => {
 	beforeEach(async () => {
 		await User.deleteMany();
 	});
