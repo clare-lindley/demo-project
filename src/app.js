@@ -88,10 +88,12 @@ app.get('/delete-files', (req, res) => {
 	res.status(200).send('OK BABY');
 });
 
-// let's add the GET getAllUsers() function in a TDD way.
-// add get user by id function in a TDD way
+// next steps:
 // add the POST createUser function in a TDD way
-// write a unit test for one of the controller functions: https://www.techighness.com/post/unit-testing-expressjs-controller-part-1/
+// write a unit test for one of the controller functions
+// and move it to it's own controller file: https://www.techighness.com/post/unit-testing-expressjs-controller-part-1/
+
+
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 

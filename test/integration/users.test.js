@@ -27,6 +27,35 @@ describe("api/users", () => {
 		});
 	});
 
+	describe("GET /:id", () => {
+		it("should return a user for the given id", async () => {
+
+			// Arrange
+			const user = { name: "test", email: "test@gmail.com", gender: "male" };
+			let newUser = await User.create(user);
+			let newUserId = newUser._id.toString();
+
+			// Act
+			const res = await request(app).get(`/api/users/${newUserId}`);
+
+			// Assert
+			expect(res.status).to.equal(200);
+			expect(res.body._id).to.equal(newUserId);
+
+		});
+
+		it("should return 400 error when invalid object id is passed", async () => {
+			const res = await request(app).get("/api/users/1");
+			expect(res.status).to.equal(400);
+		});
+
+		it("should return 404 error when valid object id is passed but does not exist", async () => {
+			const res = await request(app).get("/api/users/111111111111");
+			expect(res.status).to.equal(404);
+		});
+
+	});
+
 	afterEach(async () => {
 		await User.deleteMany();
 	});
