@@ -2,7 +2,7 @@
   "name": "@nano-monkey/demo-project",
   "version": "1.0.0",
   "description": "Demo project in support of job applications",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "fixtures": "node make-test-files.js",
     "lint": "eslint ./src  --fix",

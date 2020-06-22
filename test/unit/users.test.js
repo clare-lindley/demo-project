@@ -1,4 +1,4 @@
-const sinon = require('sinon');
+const sinon = require("sinon");
 
 const { createUser } = require("../../src/controllers/user.controller");
 const { User } = require("../../src/models/user.model");
@@ -10,9 +10,9 @@ describe("User Controllers", () => {
 		let createUserStub;
 		let req = {
 			body: {
-				name: 'test',
-				email: 'testy@test.com',
-				gender: 'female'
+				name: "test",
+				email: "testy@test.com",
+				gender: "female"
 			}
 		};
 		let res = {
@@ -20,7 +20,7 @@ describe("User Controllers", () => {
 		};
 
 		beforeEach(() => {
-			createUserStub = sinon.stub(User, 'create');
+			createUserStub = sinon.stub(User, "create");
 		});
 
 		it("should successfully create a new user", async () => {
@@ -30,13 +30,13 @@ describe("User Controllers", () => {
 				name: req.body.name,
 				email: req.body.email,
 				gender: req.body.gender
-			}
+			};
 
 			let newUser = {
 				name: req.body.name,
 				email: req.body.email,
 				gender: req.body.gender
-			}
+			};
 
 			createUserStub.resolves(newUser);
 
@@ -52,7 +52,7 @@ describe("User Controllers", () => {
 		it("should handle failures", async () => {
 
 			// Arrange
-			let testErrorMessage = 'Test error message';
+			let testErrorMessage = "Test error message";
 			createUserStub.rejects(new Error(testErrorMessage));
 
 			// Act
