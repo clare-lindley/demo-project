@@ -56,6 +56,26 @@ describe("api/users", () => {
 
 	});
 
+	describe("POST /", () => {
+		it("should create a new user", async () => {
+
+			// Arrange
+			let newUser = {
+				name: "test",
+				email: "test@gmail.com",
+				gender: "male"
+			}
+
+			// Act
+			const res = await request(app).post("/api/users").send(newUser);
+
+			// Assert
+			expect(res.status).to.equal(200);
+			expect(res.body).to.have.property("_id");
+			expect(res.body).to.have.property("name", "test");
+		});
+	});
+
 	afterEach(async () => {
 		await User.deleteMany();
 	});

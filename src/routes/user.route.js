@@ -7,6 +7,15 @@ router.route("/")
 	.get(async (req, res) => {
 		let users = await User.find();
 		return res.send(users);
+	})
+	.post(async (req, res) => {
+		let user = new User({
+			name: req.body.name,
+			email: req.body.email,
+			gender: req.body.gender
+		});
+		await user.save();
+		return res.send(user);
 	});
 
 router.route("/:id")

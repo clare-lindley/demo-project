@@ -5,8 +5,8 @@ const port = 3000;
 const file_ops = require('./tinkering/delete-files');
 const async_tinkering = require('./tinkering/async-tinkering');
 
-// static is middleware and calls next()
-// app.use() means it is called on every request
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
@@ -87,13 +87,6 @@ app.get('/delete-files', (req, res) => {
 	file_ops.deleteFiles();
 	res.status(200).send('OK BABY');
 });
-
-// next steps:
-// add the POST createUser function in a TDD way
-// write a unit test for one of the controller functions
-// and move it to it's own controller file: https://www.techighness.com/post/unit-testing-expressjs-controller-part-1/
-
-
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
