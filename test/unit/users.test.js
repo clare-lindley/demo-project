@@ -6,20 +6,26 @@ const { User } = require("../../src/models/user.model");
 describe("User Controllers", () => {
 
 	describe("createUser", () => {
+
+		let createUserStub;
+		let req = {
+			body: {
+				name: 'test',
+				email: 'testy@test.com',
+				gender: 'female'
+			}
+		};
+		let res = {
+			send: sinon.stub()
+		};
+
+		beforeEach(() => {
+			createUserStub = sinon.stub(User, 'create');
+		});
+
 		it("should successfully create a new user", async () => {
 
 			// Arrange
-			let req = {
-				body: {
-					name: 'testymctestface',
-					email: 'testy@test.com',
-					gender: 'alien'
-				}
-			};
-			let res = {
-				send: sinon.stub()
-			};
-
 			let rawUserData = {
 				name: req.body.name,
 				email: req.body.email,
@@ -32,7 +38,7 @@ describe("User Controllers", () => {
 				gender: req.body.gender
 			}
 
-			sinon.stub(User, 'create').resolves(newUser);
+			createUserStub.resolves(newUser);
 
 			// Act
 			await createUser(req, res);
@@ -43,8 +49,25 @@ describe("User Controllers", () => {
 
 		});
 
-		// it should handle errors and return the error status code and error message
-		// make the create stub promise reject and expect to return 500
+		it("should handle failures", async () => {
+
+			// Arrange
+			let testErrorMessage = 'Test error message';
+			createUserStub.rejects(new Error(testErrorMessage));
+
+			// Act
+			await createUser(req, res);
+
+			// Assert
+			sinon.assert.calledWith(res.send, testErrorMessage);
+
+		});
+
+
+		afterEach(() => {
+			createUserStub.restore();
+		});
+
 	});
 
 });
