@@ -2,25 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
-const file_ops = require("./tinkering/delete-files");
-const async_tinkering = require("./tinkering/async-tinkering");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static("public"));
-// eslint-disable-next-line no-undef
-app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
-
 
 mongoose
-	.connect("mongodb://localhost/tddDB", {
+	.connect("mongodb://localhost/demoAPIDB", {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useFindAndModify: false,
 		useUnifiedTopology: true
 	})
 	.then(() =>
-		console.log("Connected to MongoDB at mongodb://localhost/tddDB...")
+		console.log("Connected to MongoDB at mongodb://localhost/demoAPIDB...")
 	)
 	.catch(err => {
 		console.log("Failed to connect to MongoDB...", err);
@@ -30,65 +24,6 @@ mongoose
 
 const usersRouter = require("./routes/user.route");
 app.use("/api/users", usersRouter);
-
-// app handlers
-function testFunction(req, res, next){
-	res.send("here we go!");
-	next();
-}
-app.get("/test", testFunction);
-
-function promiseResolve(req, res, next) {
-	async_tinkering.returnsAPromise(true)
-		.then((result) => {
-			res.status(200).send(result);
-		})
-		.catch((error) => {
-			return next(error);
-		});
-}
-app.get("/promise-resolve", promiseResolve);
-
-function promiseReject(req, res, next) {
-	async_tinkering.returnsAPromise(false)
-		.then((result) => {
-			res.status(200).send(result);
-		})
-		.catch((error) => {
-			return next(error);
-		});
-}
-app.get("/promise-reject", promiseReject);
-
-function getSomeFiles (res, next) {
-	async_tinkering.promisifyFS("fixtures/test_0.txt")
-		.then((result) => {
-			res.status(200).send(result.toString("utf-8"));
-		})
-		.catch((error) => {
-			return next(error);
-		});
-}
-app.get("/promisify", (req, res, next) => {
-	getSomeFiles(res, next);
-});
-
-app.get("/await", async (req, res, next) => {
-
-	try {
-		const result = await async_tinkering.promisifyFS("fixtures/test_0.txt");
-		res.status(200).send(result.toString());
-	}
-	catch(error){
-		next(error);
-	}
-
-});
-
-app.get("/delete-files", (req, res) => {
-	file_ops.deleteFiles();
-	res.status(200).send("OK BABY");
-});
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
