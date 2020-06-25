@@ -67,7 +67,7 @@ describe("Integration tests for api/users", () => {
 				name: "test",
 				email: "test@gmail.com",
 				gender: "male"
-			}
+			};
 
 			// Act
 			const res = await request(app).post("/api/users").send(newUser);
