@@ -1,5 +1,6 @@
-const jwt = require("jsonwebtoken");
+"use strict";
 
+const jwt = require("jsonwebtoken");
 const app_constants = require("../../src/lib/constants");
 
 module.exports.verifyToken = function (req, res, next){

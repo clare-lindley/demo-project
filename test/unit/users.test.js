@@ -1,3 +1,5 @@
+"use strict";
+
 const sinon = require("sinon");
 
 const { createUser } = require("../../src/controllers/user.controller");

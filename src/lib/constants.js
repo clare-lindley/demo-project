@@ -1,3 +1,5 @@
+"use strict";
+
 const INVALID_TOKEN_MSG = "Token cannot be verified";
 const UNAUTHORISED_MSG = "Access to this resource is unauthorised.";
 const SECRET = "IAMASECRET";
