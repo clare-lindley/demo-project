@@ -8,22 +8,22 @@ describe("Middleware Functions", () => {
 
 	describe("verifyToken", () => {
 
-		let verifyStub = sinon.stub(jwt, "verify");
+		const verifyStub = sinon.stub(jwt, "verify");
 
 		it("should call next() if authorization header is present and valid", () => {
 
 			// Arrange
-			let req = {
+			const req = {
 				headers: {
 					authorization: "Bearer JWT-TOKEN"
 				}
 			};
-			let res = {
+			const res = {
 				status: sinon.stub().returns({ send: sinon.spy() })
 			};
-			let next = sinon.stub();
-			let auth_header = req.headers.authorization;
-			let token = auth_header.split(" ")[1];
+			const next = sinon.stub();
+			const auth_header = req.headers.authorization;
+			const token = auth_header.split(" ")[1];
 			verifyStub.returns("successful payload");
 
 			// Act
@@ -38,13 +38,13 @@ describe("Middleware Functions", () => {
 		it("should return 403 and an error message if authorization header is not present", () => {
 
 			// Arrange
-			let req = {
+			const req = {
 				headers: {}
 			};
-			let res = {
+			const res = {
 				status: sinon.stub().returns({ send: sinon.spy() })
 			};
-			let next = sinon.stub();
+			const next = sinon.stub();
 
 			// Act
 			verifyToken(req, res, next);
@@ -58,15 +58,15 @@ describe("Middleware Functions", () => {
 		it("should return 401 if token is present but cannot be verified", () => {
 
 			// Arrange
-			let req = {
+			const req = {
 				headers: {
 					authorization: "Bearer JWT-TOKEN"
 				}
 			};
-			let res = {
+			const res = {
 				status: sinon.stub().returns({ send: sinon.spy() })
 			};
-			let next = sinon.stub();
+			const next = sinon.stub();
 
 			verifyStub.throws(new Error("Test Error Message"));
 

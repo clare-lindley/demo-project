@@ -33,8 +33,8 @@ describe("Integration tests for api/users", () => {
 
 			// Arrange
 			const user = { name: "test", email: "test@gmail.com", gender: "male" };
-			let newUser = await User.create(user);
-			let newUserId = newUser._id.toString();
+			const newUser = await User.create(user);
+			const newUserId = newUser._id.toString();
 
 			// Act
 			const res = await request(app).get(`/api/users/${newUserId}`);
@@ -61,7 +61,7 @@ describe("Integration tests for api/users", () => {
 		it("should create a new user", async () => {
 
 			// Arrange
-			let newUser = {
+			const newUser = {
 				name: "test",
 				email: "test@gmail.com",
 				gender: "male"

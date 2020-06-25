@@ -8,14 +8,14 @@ describe("User Controllers", () => {
 	describe("createUser", () => {
 
 		let createUserStub;
-		let req = {
+		const req = {
 			body: {
 				name: "test",
 				email: "testy@test.com",
 				gender: "female"
 			}
 		};
-		let res = {
+		const res = {
 			send: sinon.stub()
 		};
 
@@ -26,13 +26,13 @@ describe("User Controllers", () => {
 		it("should successfully create a new user", async () => {
 
 			// Arrange
-			let rawUserData = {
+			const rawUserData = {
 				name: req.body.name,
 				email: req.body.email,
 				gender: req.body.gender
 			};
 
-			let newUser = {
+			const newUser = {
 				name: req.body.name,
 				email: req.body.email,
 				gender: req.body.gender
@@ -52,7 +52,7 @@ describe("User Controllers", () => {
 		it("should handle failures", async () => {
 
 			// Arrange
-			let testErrorMessage = "Test error message";
+			const testErrorMessage = "Test error message";
 			createUserStub.rejects(new Error(testErrorMessage));
 
 			// Act
