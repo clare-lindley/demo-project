@@ -20,6 +20,7 @@ describe("User Controllers", () => {
 		const res = {
 			send: sinon.stub()
 		};
+		const next = sinon.stub();
 
 		beforeEach(() => {
 			createUserStub = sinon.stub(User, "create");
@@ -43,7 +44,7 @@ describe("User Controllers", () => {
 			createUserStub.resolves(newUser);
 
 			// Act
-			await createUser(req, res);
+			await createUser(req, res, next);
 
 			// Assert
 			sinon.assert.calledWith(User.create, rawUserData);
@@ -58,7 +59,7 @@ describe("User Controllers", () => {
 			createUserStub.rejects(new Error(testErrorMessage));
 
 			// Act
-			await createUser(req, res);
+			await createUser(req, res, next);
 
 			// Assert
 			sinon.assert.calledWith(res.send, testErrorMessage);

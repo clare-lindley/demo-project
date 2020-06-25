@@ -8,28 +8,30 @@ const { createUser } = require("../controllers/user.controller");
 const { User } = require("../models/user.model");
 
 router.route("/")
-	.get(async (req, res) => {
+	.get(async (req, res, next) => {
 		const users = await User.find();
-		return res.send(users);
+		res.send(users);
+		next();
 	})
-	.post(async (req, res) => {
-		await createUser(req, res);
+	.post(async (req, res, next) => {
+		await createUser(req, res, next);
 	});
 
 router.route("/:id")
-	.get(async (req, res) => {
+	.get(async (req, res, next) => {
 		const userId = req.params.id;
 
 		if (!mongoose.Types.ObjectId.isValid(userId)) {
-			return res.status(400).send("Invalid object id");
+			res.status(400).send("Invalid object id");
 		}
 
 		const user = await User.findById(userId);
 		if (!user) {
-			return res.status(404).send("User not found");
+			res.status(404).send("User not found");
 		}
 
-		return res.send(user);
+		res.send(user);
+		next();
 	});
 
 module.exports = router;

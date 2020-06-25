@@ -2,7 +2,7 @@
 
 const { User } = require("../models/user.model");
 
-module.exports.createUser = async (req, res) => {
+module.exports.createUser = async (req, res, next) => {
 
 	try {
 		const newUser = await User.create({
@@ -10,10 +10,12 @@ module.exports.createUser = async (req, res) => {
 			email: req.body.email,
 			gender: req.body.gender
 		});
-		return res.send(newUser);
+		res.send(newUser);
+		next();
 	}
 	catch(e) {
-		return res.send(e.message);
+		res.send(e.message);
+		next();
 	}
 
 };
