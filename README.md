@@ -2,6 +2,7 @@
 A REST API sandbox to help me demo my knowledge and skills. At the moment the 2 streams of work are User resource CRUD and [JWT Authentication](https://jwt.io/introduction/)
 
 #### How to run
+Coming soon!
 
 #### Below I have listed anywhere where I have expressed an opinion or preference, where I think it needs an explanation.
 Why REST? Because I haven’t learned GraphQL yet :P (and I also don’t need the additional flexibility of GraphQL right now. I’ll create a separate project to learn and explore the capabilities).
@@ -18,8 +19,3 @@ but I am OK with this as the resources are only ever accessed programmatically a
 I favour const over let to signify that an identifier declared with const cannot be reassigned (I was looking for guidance on this decision, and I made it after reading this article on the subject by Eric Elliot, I am a big fan of his JavaScript writing and I trust his opinion: https://medium.com/javascript-scene/javascript-es6-var-let-or-const-ba58b8dcde75)
 
 The convention I have established for the order of includes at the top of files is: include 3rd party in A-Z order first, then a line break, then modules and variables created by myself after that in A-Z order.
-
-    
-#### Below I have listed obvious improvements - things you will definitely spot that I am aware of which are in the backlog
-
-#### Here are some other ideas for improvements and interesting tech which is on my radar
